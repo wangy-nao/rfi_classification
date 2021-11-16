@@ -35,7 +35,7 @@ az = '-'
 el = '-'
 weight = data0['weight']
 tot_num=len(weight)
-com_num = min(5,len(weight))
+com_num = min(10,len(weight))
 weight = weight[:com_num]
 
 weight=[float('{0:.4f}'.format(100*i)) for i in weight]

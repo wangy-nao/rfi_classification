@@ -15,7 +15,7 @@ import itertools
 import sklearn.decomposition as decomposition
 from write import plot_rfi
 from scipy.fftpack import fft
-import fft_classfication
+import rfi_classfication
 
 
 secperday = 3600 * 24
@@ -135,7 +135,7 @@ if __name__ == '__main__':
       a= base[i]
       arr22 = np.array(np.array(arr1)[i])
       #####classify rfi #####
-      rfi_type,data_fft = fft_classfication.classify_rfi(a)
+      rfi_type,data_fft = rfi_classfication.classify_rfi(a)
       a = list(a)
       a = list((a-min(a))/(max(a)-min(a)))
       arr2 = list(arr2)
@@ -144,7 +144,7 @@ if __name__ == '__main__':
          f_rfi = f_arr[list(arr22).index(max(arr22))]
          x_arr = np.arange(len(a))
          imp_index = x_arr[(a>=(5*np.std(a)+np.mean(a)))]
-         imp_index_arr_output = fft_classfication.judge_continue(imp_index)
+         imp_index_arr_output = rfi_classfication.judge_continue(imp_index)
          imp_index_p =  [np.where(np.array(a)==max(np.array(a)[q]))[0][0] for q in imp_index_arr_output]
          t_rfi0=t_arr[imp_index_p]
          ###calculate stn of pulses###
@@ -212,7 +212,7 @@ if __name__ == '__main__':
       ax.plot(t_arr1, a_norm+(10-i),linewidth=0.3)
       ax.set_xticks(t_arr1[::len(t_arr1)//5])
 
-   plt.savefig('%s.png'%basename,dpi=800)
+   #plt.savefig('%s.png'%basename,dpi=800)
    print('Impulse-like:%s'%(len(cindex_info_1)))
    print('Periodic:%s'%(len(cindex_info_2)))
    print('Colored-noise:%s'%(len(cindex_info_3)))
